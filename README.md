@@ -12,16 +12,15 @@ You **may NOT** use, copy, share, or redistribute any part of this code or the A
 
 For full license details, click the link below:
 
-[View License](https://dowsvr.github.io/license.md)
+[View Licence](https://dowsvr.github.io/Licence.md)
 
 ---
 
-## Live Demo
+## Live Website
 
 Check out the live website:  
 https://dowsvr.github.io/
 
 ---
 
-<!-- Note: GitHub README doesn't support buttons, but here is a clickable link -->
-[View License](https://dowsvr.github.io/license.md)
+[View Licence](https://dowsvr.github.io/Licence.md)
