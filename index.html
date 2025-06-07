@@ -1,131 +1,221 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DowsVR - Gorilla Tag VR Channel</title>
-  <link rel="icon" href="channels4_profile.jpg" type="image/jpeg" />
-  <style>
-    /* Gorilla Tag vibes: dark jungle with blocky text */
-    body {
-      background: linear-gradient(135deg, #0b2a1a 0%, #143d23 100%);
-      color: #a3d2a1;
-      font-family: 'Courier New', Courier, monospace;
-      user-select: none;
-      margin: 0; padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 3em;
-      text-shadow: 3px 3px 0 #1a3c1a;
-      margin-bottom: 0;
-    }
-    #subscriber-count {
-      font-size: 2em;
-      margin: 20px 0;
-      letter-spacing: 3px;
-      text-shadow: 2px 2px 4px #0a150a;
-    }
-    p {
-      font-size: 1.1em;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    footer {
-      margin-top: 40px;
-      font-size: 0.8em;
-      color: #789978;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DowsVR - Gorilla Tag VR Channel</title>
+<link rel="icon" href="channels4_profile.jpg" type="image/jpeg" />
+<style>
+  body {
+    background: linear-gradient(135deg, #0b2a1a 0%, #143d23 100%);
+    color: #a3d2a1;
+    font-family: 'Courier New', Courier, monospace;
+    user-select: none;
+    margin: 0; padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    font-size: 3em;
+    text-shadow: 3px 3px 0 #1a3c1a;
+    margin-bottom: 0;
+  }
+  #subscriber-count {
+    font-size: 2em;
+    margin: 20px 0;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px #0a150a;
+  }
+  p {
+    font-size: 1.1em;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+  }
+  footer {
+    margin-top: 40px;
+    font-size: 0.8em;
+    color: #789978;
+  }
+  button {
+    background-color: #2f5d34;
+    border: none;
+    color: #a3d2a1;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #467d49;
+  }
+
+  /* Modal styles */
+  #licenseModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+  }
+  #licenseContent {
+    background-color: #1e3a20;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 700px;
+    color: #a3d2a1;
+    font-family: monospace;
+    white-space: pre-wrap;
+    box-shadow: 0 0 15px #1a5d29;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  #licenseClose {
+    background-color: #5a8b4c;
+    border: none;
+    padding: 8px 15px;
+    font-size: 1em;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #e1f0d1;
+  }
+  #licenseClose:hover {
+    background-color: #7ab156;
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>DowsVR</h1>
-    <p>Welcome to the Gorilla Tag VR content zone!</p>
-  </header>
+<header>
+  <h1>DowsVR</h1>
+  <p>Welcome to the Gorilla Tag VR content zone!</p>
+</header>
 
-  <section>
-    <div id="subscriber-count">Loading subscribers...</div>
-  </section>
+<section>
+  <div id="subscriber-count">Loading subscribers...</div>
+</section>
 
-  <footer>&copy; 2025 DowsVR</footer>
+<section>
+  <button id="showLicenseBtn">View License</button>
+</section>
 
-  <script>
-  // Anti-devtools advanced tricks
-  (function(){
-    // Disable right-click menu
-    document.addEventListener('contextmenu', e => e.preventDefault());
+<footer>&copy; 2025 DowsVR</footer>
 
-    // Block keys like Ctrl+U, F12, Ctrl+Shift+I/J/C, Ctrl+S
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.key.toLowerCase() === 'u') ||
-        (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase())) ||
-        (e.ctrlKey && e.key.toLowerCase() === 's')
-      ) {
-        e.preventDefault();
-        alert('Viewing source is disabled.');
-      }
-    });
+<!-- License Modal -->
+<div id="licenseModal" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
+  <div id="licenseContent">
+    <h2 id="licenseTitle">License Agreement for DowsVR Website Code</h2>
+    
+Copyright © 2025 DowsVR
 
-    // Freeze console to block some attempts to open it
-    const originalConsole = window.console;
-    Object.defineProperty(window, 'console', {
-      get: () => originalConsole,
-      set: () => {},
-      configurable: false
-    });
+All rights reserved.
 
-    // Detect devtools open via clever function.toString length trick
-    let devtoolsOpen = false;
-    const element = new Image();
-    Object.defineProperty(element, 'id', {
-      get: function() {
-        devtoolsOpen = true;
-        alert("Developer tools detected! Please close them.");
-      }
-    });
-    setInterval(() => {
-      devtoolsOpen = false;
-      console.log(element);
-      if (devtoolsOpen) {
-        // You can do extra stuff here, like redirect or block content
-      }
-    }, 1000);
+Restrictions:
 
-  })();
+1. No Use:  
+You are **not permitted** to use, copy, distribute, modify, or create derivative works from this code or any associated files, including the API key or any part of the API integration.
 
-  // Load API key from api.txt and fetch subscriber count
-  (async function() {
-    try {
-      // Fetch API key from api.txt (public file, so this is NOT secure)
-      const keyResp = await fetch('api.txt');
-      const API_KEY = (await keyResp.text()).trim();
+2. No Redistribution:  
+You may **not share, repost, or upload** this code or any part of it, including on GitHub, public repositories, websites, or any other platform.
 
-      const CHANNEL_ID = 'UCjigTAl1kLZf8JueJ7xWcg'; // DowsVR YouTube channel ID
+3. No Commercial or Personal Use:  
+Use of this code for personal, educational, commercial, or any other purpose is strictly prohibited.
 
-      // Obfuscated-ish function to fetch subs (to confuse casual readers)
-      const a = 'https://www.googleapis.com/youtube/v3/channels?part=statistics&id=';
-      const b = '&key=' + API_KEY;
-      const url = a + CHANNEL_ID + b;
+4. No Reverse Engineering or Extraction:  
+You may **not attempt to reverse engineer**, extract, or reuse the API key or any other sensitive information embedded or referenced in this project.
 
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('API request failed');
+Enforcement:
 
-      const data = await response.json();
-      const subs = data.items[0].statistics.subscriberCount;
+Violations of these terms will be considered a breach of copyright and may result in legal action.
 
-      document.getElementById('subscriber-count').textContent = `${subs} subscribers`;
+---
 
-    } catch(e) {
-      document.getElementById('subscriber-count').textContent = 'Failed to load subscriber count.';
-      console.error(e);
+For permission requests or inquiries, please contact:  
+**DowsVR Official Contact**
+
+---
+
+*This license grants zero permissions beyond viewing the code privately.*
+
+    <button id="licenseClose">Close License</button>
+  </div>
+</div>
+
+<script>
+// Devtools disable code (as before)
+(function(){
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', function(e) {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.key.toLowerCase() === 'u') ||
+      (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase())) ||
+      (e.ctrlKey && e.key.toLowerCase() === 's')
+    ) {
+      e.preventDefault();
+      alert('Viewing source is disabled.');
     }
-  })();
+  });
+  const originalConsole = window.console;
+  Object.defineProperty(window, 'console', {
+    get: () => originalConsole,
+    set: () => {},
+    configurable: false
+  });
+  let devtoolsOpen = false;
+  const element = new Image();
+  Object.defineProperty(element, 'id', {
+    get: function() {
+      devtoolsOpen = true;
+      alert("Developer tools detected! Please close them.");
+    }
+  });
+  setInterval(() => {
+    devtoolsOpen = false;
+    console.log(element);
+  }, 1000);
+})();
 
-  </script>
+// License modal open/close
+const modal = document.getElementById('licenseModal');
+const showBtn = document.getElementById('showLicenseBtn');
+const closeBtn = document.getElementById('licenseClose');
+
+showBtn.onclick = () => {
+  modal.style.display = 'block';
+};
+closeBtn.onclick = () => {
+  modal.style.display = 'none';
+};
+window.onclick = (e) => {
+  if(e.target === modal){
+    modal.style.display = 'none';
+  }
+};
+
+// Obfuscated JS for fetching subscriber count
+(function(){
+  var _0x1a2b=["asldkhapisundlkjha87shdpiuhapojisjndlkjhasiodnjmipjashdouyihbas8uhnduanhsduhbhnasuonhd87oasghhdjmasoiudyhyiashniopdas8iygbduahjso8udgap9uhnj9sdyhg.txt"],_0x4e2f="UCjigTAl1kLZf8JueJ7xWcg",_0x2fa7="https://www.googleapis.com/youtube/v3/channels?part=statistics&id=",_0x63a8="&key=";
+  (async function(){
+    try{
+      const _0x5b9e=await fetch(_0x1a2b[0]);
+      const _0x20d0=await _0x5b9e.text();
+      const _0x2623=_0x20d0.trim();
+      const _0x7df2=_0x2fa7+_0x4e2f+_0x63a8+_0x2623;
+      const _0x2ce1=await fetch(_0x7df2);
+      if(!_0x2ce1.ok)throw new Error("API error");
+      const _0x5714=await _0x2ce1.json();
+      const _0x484d=_0x5714.items[0].statistics.subscriberCount;
+      document.getElementById("subscriber-count").textContent=_0x484d+" subscribers"
+    }catch(_0x5a2b){
+      document.getElementById("subscriber-count").textContent="Failed to load subscriber count.";
+      console.error(_0x5a2b)
+    }
+  })()
+})();
+</script>
 
 </body>
 </html>
