@@ -1,24 +1,23 @@
-# Security Policy
-
-## Supported Versions
-
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+# Security Policy for DowsVR Website
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+If you discover a security vulnerability in this project or its associated API, please report it responsibly by opening a **private GitHub Issue** in this repository.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Do **not** post vulnerabilities publicly or share them anywhere else until they are fixed.
 
+## Response Process
 
-idk DO NOT USE THE SOURCE CODE
+- We will acknowledge receipt of the report within 48 hours.
+- We aim to resolve critical vulnerabilities as soon as possible.
+- Coordinated disclosure is appreciated. We will work with you to ensure issues are fixed before public disclosure.
+
+## Security Best Practices
+
+- API keys and sensitive information are never exposed publicly.
+- Code is reviewed regularly to minimize security risks.
+- Users are encouraged to keep their browsers updated and use strong passwords where applicable.
+
+---
+
+Thank you for helping keep DowsVR secure!
