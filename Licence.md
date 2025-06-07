@@ -24,8 +24,7 @@ Violations of these terms will be considered a breach of copyright and may resul
 
 ---
 
-For permission requests or inquiries, please contact:  
-**DowsVR Official Contact**
+
 
 ---
 
