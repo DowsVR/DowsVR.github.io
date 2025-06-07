@@ -1,1 +1,131 @@
-idki
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DowsVR - Gorilla Tag VR Channel</title>
+  <link rel="icon" href="channels4_profile.jpg" type="image/jpeg" />
+  <style>
+    /* Gorilla Tag vibes: dark jungle with blocky text */
+    body {
+      background: linear-gradient(135deg, #0b2a1a 0%, #143d23 100%);
+      color: #a3d2a1;
+      font-family: 'Courier New', Courier, monospace;
+      user-select: none;
+      margin: 0; padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3em;
+      text-shadow: 3px 3px 0 #1a3c1a;
+      margin-bottom: 0;
+    }
+    #subscriber-count {
+      font-size: 2em;
+      margin: 20px 0;
+      letter-spacing: 3px;
+      text-shadow: 2px 2px 4px #0a150a;
+    }
+    p {
+      font-size: 1.1em;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.8em;
+      color: #789978;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DowsVR</h1>
+    <p>Welcome to the Gorilla Tag VR content zone!</p>
+  </header>
+
+  <section>
+    <div id="subscriber-count">Loading subscribers...</div>
+  </section>
+
+  <footer>&copy; 2025 DowsVR</footer>
+
+  <script>
+  // Anti-devtools advanced tricks
+  (function(){
+    // Disable right-click menu
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Block keys like Ctrl+U, F12, Ctrl+Shift+I/J/C, Ctrl+S
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.key.toLowerCase() === 'u') ||
+        (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase())) ||
+        (e.ctrlKey && e.key.toLowerCase() === 's')
+      ) {
+        e.preventDefault();
+        alert('Viewing source is disabled.');
+      }
+    });
+
+    // Freeze console to block some attempts to open it
+    const originalConsole = window.console;
+    Object.defineProperty(window, 'console', {
+      get: () => originalConsole,
+      set: () => {},
+      configurable: false
+    });
+
+    // Detect devtools open via clever function.toString length trick
+    let devtoolsOpen = false;
+    const element = new Image();
+    Object.defineProperty(element, 'id', {
+      get: function() {
+        devtoolsOpen = true;
+        alert("Developer tools detected! Please close them.");
+      }
+    });
+    setInterval(() => {
+      devtoolsOpen = false;
+      console.log(element);
+      if (devtoolsOpen) {
+        // You can do extra stuff here, like redirect or block content
+      }
+    }, 1000);
+
+  })();
+
+  // Load API key from api.txt and fetch subscriber count
+  (async function() {
+    try {
+      // Fetch API key from api.txt (public file, so this is NOT secure)
+      const keyResp = await fetch('api.txt');
+      const API_KEY = (await keyResp.text()).trim();
+
+      const CHANNEL_ID = 'UCjigTAl1kLZf8JueJ7xWcg'; // DowsVR YouTube channel ID
+
+      // Obfuscated-ish function to fetch subs (to confuse casual readers)
+      const a = 'https://www.googleapis.com/youtube/v3/channels?part=statistics&id=';
+      const b = '&key=' + API_KEY;
+      const url = a + CHANNEL_ID + b;
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('API request failed');
+
+      const data = await response.json();
+      const subs = data.items[0].statistics.subscriberCount;
+
+      document.getElementById('subscriber-count').textContent = `${subs} subscribers`;
+
+    } catch(e) {
+      document.getElementById('subscriber-count').textContent = 'Failed to load subscriber count.';
+      console.error(e);
+    }
+  })();
+
+  </script>
+
+</body>
+</html>
