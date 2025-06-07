@@ -3,217 +3,197 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DowsVR - Gorilla Tag VR Channel</title>
+<title>DowsVR YouTube Channel - Gorilla Tag Vibes</title>
 <link rel="icon" href="channels4_profile.jpg" type="image/jpeg" />
+
 <style>
   body {
-    background: linear-gradient(135deg, #0b2a1a 0%, #143d23 100%);
-    color: #a3d2a1;
-    font-family: 'Courier New', Courier, monospace;
-    user-select: none;
-    margin: 0; padding: 20px;
+    background: linear-gradient(135deg, #223311 0%, #445522 100%);
+    color: #d4e157;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    background: #1a2a0a;
+    padding: 20px;
     text-align: center;
-  }
-  h1 {
-    font-size: 3em;
-    text-shadow: 3px 3px 0 #1a3c1a;
-    margin-bottom: 0;
-  }
-  #subscriber-count {
     font-size: 2em;
-    margin: 20px 0;
+    font-weight: bold;
     letter-spacing: 3px;
-    text-shadow: 2px 2px 4px #0a150a;
+    user-select: none;
   }
-  p {
-    font-size: 1.1em;
-    max-width: 600px;
-    margin: 0 auto 30px auto;
+  #sub-count {
+    margin: 15px auto;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: 600;
+    color: #aeea00;
   }
-  footer {
-    margin-top: 40px;
-    font-size: 0.8em;
-    color: #789978;
+  #videos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+  }
+  .video {
+    width: 320px;
+    background: #314721;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #aeea00aa;
+  }
+  .video iframe {
+    width: 100%;
+    height: 180px;
+    border: none;
+  }
+  .video-title {
+    padding: 8px;
+    color: #d4e157;
+    font-weight: 600;
   }
   button {
-    background-color: #2f5d34;
-    border: none;
-    color: #a3d2a1;
+    display: block;
+    margin: 25px auto;
     padding: 10px 20px;
-    font-size: 1em;
+    background: #aeea00;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    user-select: none;
+    transition: background-color 0.3s;
   }
   button:hover {
-    background-color: #467d49;
+    background: #d4e157;
   }
-
-  /* Modal styles */
-  #licenseModal {
-    display: none;
+  #license-popup {
     position: fixed;
-    z-index: 1000;
-    left: 0; top: 0; width: 100%; height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.8);
-  }
-  #licenseContent {
-    background-color: #1e3a20;
-    margin: 5% auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #223311ee;
+    border: 3px solid #aeea00;
     padding: 20px;
-    border-radius: 10px;
-    max-width: 700px;
-    color: #a3d2a1;
-    font-family: monospace;
-    white-space: pre-wrap;
-    box-shadow: 0 0 15px #1a5d29;
-    max-height: 80vh;
+    max-width: 90vw;
+    max-height: 70vh;
     overflow-y: auto;
+    color: #d4e157;
+    font-size: 0.9em;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #aeea00cc;
+    transition: transform 0.3s ease;
+    z-index: 1000;
   }
-  #licenseClose {
-    background-color: #5a8b4c;
-    border: none;
-    padding: 8px 15px;
-    font-size: 1em;
+  #license-popup.show {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  #license-popup h2 {
+    text-align: center;
+    margin-top: 0;
+  }
+  #license-popup button.close-btn {
     margin-top: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #e1f0d1;
-  }
-  #licenseClose:hover {
-    background-color: #7ab156;
+    background: #aeea00;
   }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>DowsVR</h1>
-  <p>Welcome to the Gorilla Tag VR content zone!</p>
-</header>
+<header>DowsVR - Gorilla Tag Vibes</header>
 
-<section>
-  <div id="subscriber-count">Loading subscribers...</div>
-</section>
+<div id="sub-count">Loading subscriber count...</div>
 
-<section>
-  <button id="showLicenseBtn">View License</button>
-</section>
+<div id="videos"></div>
 
-<footer>&copy; 2025 DowsVR</footer>
+<button id="license-btn">View License</button>
 
-<!-- License Modal -->
-<div id="licenseModal" role="dialog" aria-modal="true" aria-labelledby="licenseTitle">
-  <div id="licenseContent">
-    <h2 id="licenseTitle">License Agreement for DowsVR Website Code</h2>
-    
-Copyright © 2025 DowsVR
-
-All rights reserved.
-
-Restrictions:
-
-1. No Use:  
-You are **not permitted** to use, copy, distribute, modify, or create derivative works from this code or any associated files, including the API key or any part of the API integration.
-
-2. No Redistribution:  
-You may **not share, repost, or upload** this code or any part of it, including on GitHub, public repositories, websites, or any other platform.
-
-3. No Commercial or Personal Use:  
-Use of this code for personal, educational, commercial, or any other purpose is strictly prohibited.
-
-4. No Reverse Engineering or Extraction:  
-You may **not attempt to reverse engineer**, extract, or reuse the API key or any other sensitive information embedded or referenced in this project.
-
-Enforcement:
-
-Violations of these terms will be considered a breach of copyright and may result in legal action.
-
----
-
-For permission requests or inquiries, please contact:  
-**DowsVR Official Contact**
-
----
-
-*This license grants zero permissions beyond viewing the code privately.*
-
-    <button id="licenseClose">Close License</button>
+<div id="license-popup" role="dialog" aria-modal="true" aria-labelledby="license-title" aria-describedby="license-content">
+  <h2 id="license-title">License</h2>
+  <div id="license-content">
+    <p>This code and API usage is <strong>not allowed</strong> to be used by anyone else.</p>
+    <p>Unauthorized use or copying of this code or the API key is prohibited.</p>
+    <p>Use is strictly limited to DowsVR channel owner.</p>
   </div>
+  <button class="close-btn">Close</button>
 </div>
 
 <script>
-// Devtools disable code (as before)
-(function(){
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  document.addEventListener('keydown', function(e) {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.key.toLowerCase() === 'u') ||
-      (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase())) ||
-      (e.ctrlKey && e.key.toLowerCase() === 's')
-    ) {
-      e.preventDefault();
-      alert('Viewing source is disabled.');
-    }
-  });
-  const originalConsole = window.console;
-  Object.defineProperty(window, 'console', {
-    get: () => originalConsole,
-    set: () => {},
-    configurable: false
-  });
-  let devtoolsOpen = false;
-  const element = new Image();
-  Object.defineProperty(element, 'id', {
-    get: function() {
-      devtoolsOpen = true;
-      alert("Developer tools detected! Please close them.");
-    }
-  });
-  setInterval(() => {
-    devtoolsOpen = false;
-    console.log(element);
-  }, 1000);
-})();
+(() => {
+  const API_KEY = "AIzaSyA6xOu9m19w4cQvAp9V-cDprPO-lxoAC6I"; // Your API key here
+  const CHANNEL_ID = "UC_sZR3Cl7oib8T6-V5aQ0GA"; // Your YouTube channel ID
 
-// License modal open/close
-const modal = document.getElementById('licenseModal');
-const showBtn = document.getElementById('showLicenseBtn');
-const closeBtn = document.getElementById('licenseClose');
+  const subCountEl = document.getElementById("sub-count");
+  const videosEl = document.getElementById("videos");
+  const licenseBtn = document.getElementById("license-btn");
+  const licensePopup = document.getElementById("license-popup");
+  const closeBtn = licensePopup.querySelector(".close-btn");
 
-showBtn.onclick = () => {
-  modal.style.display = 'block';
-};
-closeBtn.onclick = () => {
-  modal.style.display = 'none';
-};
-window.onclick = (e) => {
-  if(e.target === modal){
-    modal.style.display = 'none';
+  async function fetchSubscriberCount() {
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`
+      );
+      const data = await response.json();
+      if (data.items && data.items.length) {
+        const subs = parseInt(data.items[0].statistics.subscriberCount, 10);
+        subCountEl.textContent = `Subscribers: ${subs.toLocaleString()}`;
+      } else {
+        subCountEl.textContent = "Failed to load subscriber count.";
+      }
+    } catch {
+      subCountEl.textContent = "Failed to load subscriber count.";
+    }
   }
-};
 
-// Obfuscated JS for fetching subscriber count
-(function(){
-  var _0x1a2b=["asldkhapisundlkjha87shdpiuhapojisjndlkjhasiodnjmipjashdouyihbas8uhnduanhsduhbhnasuonhd87oasghhdjmasoiudyhyiashniopdas8iygbduahjso8udgap9uhnj9sdyhg.txt"],_0x4e2f="UCjigTAl1kLZf8JueJ7xWcg",_0x2fa7="https://www.googleapis.com/youtube/v3/channels?part=statistics&id=",_0x63a8="&key=";
-  (async function(){
-    try{
-      const _0x5b9e=await fetch(_0x1a2b[0]);
-      const _0x20d0=await _0x5b9e.text();
-      const _0x2623=_0x20d0.trim();
-      const _0x7df2=_0x2fa7+_0x4e2f+_0x63a8+_0x2623;
-      const _0x2ce1=await fetch(_0x7df2);
-      if(!_0x2ce1.ok)throw new Error("API error");
-      const _0x5714=await _0x2ce1.json();
-      const _0x484d=_0x5714.items[0].statistics.subscriberCount;
-      document.getElementById("subscriber-count").textContent=_0x484d+" subscribers"
-    }catch(_0x5a2b){
-      document.getElementById("subscriber-count").textContent="Failed to load subscriber count.";
-      console.error(_0x5a2b)
+  async function fetchVideos() {
+    try {
+      // Get uploads playlist ID
+      const channelResponse = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+      );
+      const channelData = await channelResponse.json();
+      if (!channelData.items || !channelData.items.length) {
+        videosEl.innerHTML = "<p style='text-align:center;'>Failed to load videos.</p>";
+        return;
+      }
+      const uploadsId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+
+      // Get videos from uploads playlist
+      const playlistResponse = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsId}&maxResults=6&key=${API_KEY}`
+      );
+      const playlistData = await playlistResponse.json();
+      if (!playlistData.items || !playlistData.items.length) {
+        videosEl.innerHTML = "<p style='text-align:center;'>No videos found.</p>";
+        return;
+      }
+
+      videosEl.innerHTML = "";
+      playlistData.items.forEach((item) => {
+        const videoId = item.snippet.resourceId.videoId;
+        const title = item.snippet.title;
+        const videoDiv = document.createElement("div");
+        videoDiv.className = "video";
+        videoDiv.innerHTML = `
+          <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
+          <div class="video-title">${title}</div>
+        `;
+        videosEl.appendChild(videoDiv);
+      });
+    } catch {
+      videosEl.innerHTML = "<p style='text-align:center;'>Failed to load videos.</p>";
     }
-  })()
+  }
+
+  licenseBtn.onclick = () => licensePopup.classList.add("show");
+  closeBtn.onclick = () => licensePopup.classList.remove("show");
+
+  // Init
+  fetchSubscriberCount();
+  fetchVideos();
 })();
 </script>
 
